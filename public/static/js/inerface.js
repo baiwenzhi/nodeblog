@@ -116,7 +116,7 @@ mainapp.controller("menuController",function($scope,$http,fac_page_active){
     if (sessionStorage.getItem('categorys')){
         $scope.categorys = JSON.parse(sessionStorage.getItem('categorys'));
     }else{
-        $http.get('/api/categorys',{cache:true}).success(function(data, status, headers, config) {
+        $http.get('/static/json/categorys.json',{cache:true}).success(function(data, status, headers, config) {
             sessionStorage.setItem('categorys',JSON.stringify(data))
             $scope.categorys = data;
         });
@@ -157,7 +157,7 @@ mainapp.controller("blogsController",function($scope,$http,$location,$filter,fac
     if ($location.url().indexOf('category')!=-1&&fac_page_active.menu_active==false){
         fac_page_active.update_menu_active()
     }
-    var promise = $http.get('/api'+$location.url(),{cache:true}).success(function(data, status, headers, config) {
+    var promise = $http.get('/static/json/'+$location.url()+ '.json',{cache:true}).success(function(data, status, headers, config) {
         $scope.blogs = data.results;
         $scope.count=data.count
         $scope.next=data.next
